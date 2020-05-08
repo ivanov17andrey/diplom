@@ -1,0 +1,658 @@
+@import "vars";
+@import "fonts";
+@import "libs";
+
+::placeholder {
+	color: rgba(17, 62, 92, 0.274);
+}
+
+::selection {
+	background-color: $active;
+	color: #fff;
+}
+
+body {
+	font-size: 18px;
+	min-width: 320px;
+	position: relative;
+	line-height: 1.65;
+	font-family: $default-font;
+	overflow-x: hidden;
+	color: $text;
+	a {
+		color: $text;
+		&:hover {
+			text-decoration: none;
+			color: inherit;
+		}
+	}
+	input, textarea {
+		border: $text 1px solid;
+		outline: none;
+		padding-left: .3rem;
+		&:focus {
+			border-color: $active;
+		}
+		&:focus:required:invalid {
+			border-color: red;
+		}
+		&:required:valid {
+			border-color: green;
+		}
+	}
+	button {
+		outline: none;
+		&:focus {
+			box-shadow: none;
+			outline: none;
+		}
+	}
+}
+
+.img-responsive {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	&.img-width {
+		width: 100%;
+	}
+}
+
+.text-center {
+	text-align: center;
+}
+
+b, strong {
+	font-weight: bold;
+}
+
+// Стили
+
+body {
+	
+	.header {
+		min-height: 100vh;
+	}
+
+	.section {
+		min-height: min-content;
+		padding-top: calc(19vh + 2rem);
+		padding-bottom: 2rem;
+		margin-top: -19vh;
+	}
+
+	.header {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		align-items: center;
+		background-image: url(../img/bg-header.jpg);
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-attachment: fixed;
+
+		&__headline {
+			text-align: center;
+			padding: 1.5rem 2.5rem;
+			border: 1px solid $headings;
+			border-radius: 0.5rem;
+			color: $headings;
+			font-size: 3.1rem;
+			font-weight: bold;
+			background: rgba(200, 200, 200, 0.25);
+		}
+
+	}
+
+	.nav {
+		position: sticky;
+		top: 0;
+
+		&__ul {
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-between;
+			align-items: center;
+			list-style: none;
+			height: 3rem;
+			padding: 0;
+			margin: 0;
+			background-color: white;
+			box-shadow: 0 10px 15px rgba(200, 200, 200, 0.25);
+		}
+
+		&__item {
+			flex: 0 1 16.6666667%;
+			text-align: center;
+
+			&:hover {
+				color: $active;
+				transition: all 0.1s;
+			}
+
+		}
+
+	}
+
+	.what-is-flight {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		padding-top: calc(19vh + 6rem);
+		padding-bottom: 3rem;
+
+		&__heading {
+			text-align: center;
+			font-size: 2rem;
+		}
+	}
+
+	.bg {
+		width: 100vw;
+		height: 40vh;
+	}
+
+	.bg-2 {
+		background: no-repeat center/cover fixed url(../img/bg-2.jpg);
+	}
+
+	.about-helicopter {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+		
+
+		&__left-side {
+			flex: 0 1 50%;
+		}
+
+		&__right-side {
+			flex: 0 1 50%;
+		}
+
+		&__img {
+			border: 1px solid $text;
+			border-radius: 1rem;
+			margin: 0 0.75rem;
+			transition: all .4s;
+			&:hover {
+				transform: scale(1.5, 1.5) translateX(-35%);
+				transition: all .4s ease-in-out;
+				border: 1px solid $active;
+			}
+		}
+
+	}
+
+	.bg-3 {
+		background: no-repeat center/cover fixed url(/img/bg-3.jpg);
+	}
+
+	.bg-4 {
+		background: no-repeat center/cover fixed url(/img/bg-4.jpg);
+	}
+
+	.bg-5 {
+		background: no-repeat center/cover fixed url(/img/bg-5.jpg);
+	}
+
+	.bg-6 {
+		background: no-repeat center/cover fixed url(/img/bg-6.jpg);
+	}
+
+	.bg-7 {
+		background: no-repeat center/cover fixed url(/img/bg-7.jpg);
+	}
+
+	.bg-8 {
+		background: no-repeat center/cover fixed url(/img/bg-8.jpg);
+	}
+
+	.bg-9 {
+		background: no-repeat center/cover fixed url(/img/bg-9.jpg);
+	}
+
+	.comparition {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: flex-start;
+		align-items: center;
+		width: 100%;
+		min-height: fit-content;
+
+		&__heading {
+			padding-top: 1.5rem;
+			text-align: center;
+		}
+
+		&__box {
+			padding-top: 1.5rem;
+			padding-bottom: 2rem;
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-around;
+			width: 100%;
+		}
+
+		&__method {
+			flex: 0 1 45%;
+			color: $text;
+			background: white;
+			border: 1px solid $text;
+			border-radius: .2rem;
+			transition: all .1s ease-in-out;
+			&_active {
+				color: $active;
+				border: 1px solid $active;
+			}
+			&:hover {
+				transform: scale(1.1, 1.1);
+				color: $active;
+				border: 1px solid $active;
+				transition: all .1s ease-in-out;
+			}
+		}
+
+		.ranging {
+			display: flex;
+			flex-flow: column wrap;
+			width: 100%;
+
+			&__row {
+				display: flex;
+				flex: 0 1 100%;
+				flex-flow: row wrap;
+				align-items: center;
+				justify-content: center;
+				width: 100%;
+				margin-bottom: 1rem;
+				padding: .5rem 0;
+				border: 1px solid $text;
+				border-radius: .3rem;
+			}
+
+			&__name {
+				display: block;
+				flex: 0 1 50%;
+				text-align: center;
+			}
+
+			&__select {
+				flex: 0 1 50%;
+				text-align: center;
+				
+			}
+
+			.custom-select {
+				color: $text;
+				border-color: $text;
+			}
+
+			select {
+				width: 4rem;
+			}
+
+			&__column {
+				flex: 0 1 50%;
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: center;
+				align-items: center;
+			}
+
+			&__input {
+				margin: .5rem 0;
+				color: $text;
+				width: 15rem;
+			}
+
+			&__send-button {
+				color: $text;
+				background: white;
+				border: 1px solid $text;
+				border-radius: .2rem;
+				transition: all .1s ease-in-out;
+				
+				&:hover {
+					transform: scale(1.1, 1.1);
+					color: $active;
+					border: 1px solid $active;
+					transition: all .1s ease-in-out;
+				}
+			}
+
+		}
+
+		.pair {
+			&__box {
+				padding-top: 1.5rem;
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-around;
+				width: 100%;
+				border: 1px solid $text;
+			}
+
+			&__row {
+				flex: 0 1 100%;
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: center;
+				margin-bottom: 1.5rem;
+			}
+
+			&__input {
+				color: $text;
+				width: 15rem;
+				&:disabled {
+					color: darkgrey;
+					border-color: darkgrey;
+				}
+			}
+
+			&__cell {
+				flex: 0 1 50%;
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: center;
+				margin-bottom: 1.5rem;
+			}
+
+			&__button {
+				width: 80%;
+				color: $text;
+				background: white;
+				border: 1px solid $text;
+				border-radius: .2rem;
+				transition: all .1s ease-in-out;
+				&:hover {
+					transform: scale(1.1, 1.1);
+					color: $active;
+					border: 1px solid $active;
+					transition: all .1s ease-in-out;
+				}
+			}
+		}
+
+		.result {
+			display: flex;
+			flex-flow: column wrap;
+			align-items: center;
+			margin: 1rem 0;
+			width: 100%;
+
+			&__heading {
+				flex: 0 1 100%;
+			}
+
+			&__button {
+				width: auto;
+				color: $text;
+				background: white;
+				border: 1px solid $text;
+				border-radius: .2rem;
+				transition: all .1s ease-in-out;
+				margin-bottom: 1rem;
+				&:hover {
+					transform: scale(1.1, 1.1);
+					color: $active;
+					border: 1px solid $active;
+					transition: all .1s ease-in-out;
+				}
+			}
+
+			&__table {
+				width: 100%;
+				margin-bottom: 1rem;
+			}
+
+			&__row {
+				flex: 0 1 100%;
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: center;
+				width: 100%;
+			}
+
+			&__cell {
+				flex: 0 1 50%;
+				text-align: center;
+				border: 1px solid $text;
+			}
+		}
+	}
+
+	.hidden {
+		display: none !important;
+	}
+
+	.scroll {
+		background-attachment: scroll;
+	}
+
+}
+
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
+.preload { 
+	position: absolute;
+	background: white;
+	// top: 0;
+	// left: 0;
+	// right: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.fadeOut {
+	animation: fadeOut 1s linear;
+}
+
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+.cssload-loader {
+	position: relative;
+	width: 100px;
+	height: 100px;
+  margin:130px 0;
+	perspective: 780px;
+}
+
+.cssload-inner {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+		-o-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+	border-radius: 50%;
+		-o-border-radius: 50%;
+		-ms-border-radius: 50%;
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+  &.cssload-one {
+	left: 0%;
+	top: 0%;
+	animation: cssload-rotate-one 1.15s linear infinite;
+		-o-animation: cssload-rotate-one 1.15s linear infinite;
+		-ms-animation: cssload-rotate-one 1.15s linear infinite;
+		-webkit-animation: cssload-rotate-one 1.15s linear infinite;
+		-moz-animation: cssload-rotate-one 1.15s linear infinite;
+	border-bottom: 3px solid #5C5EDC;
+}
+  &.cssload-two {
+	right: 0%;
+	top: 0%;
+	animation: cssload-rotate-two 1.15s linear infinite;
+		-o-animation: cssload-rotate-two 1.15s linear infinite;
+		-ms-animation: cssload-rotate-two 1.15s linear infinite;
+		-webkit-animation: cssload-rotate-two 1.15s linear infinite;
+		-moz-animation: cssload-rotate-two 1.15s linear infinite;
+	border-right: 3px solid rgba(76, 70, 101, 0.99);
+}
+&.cssload-three {
+	right: 0%;
+	bottom: 0%;
+	animation: cssload-rotate-three 1.15s linear infinite;
+		-o-animation: cssload-rotate-three 1.15s linear infinite;
+		-ms-animation: cssload-rotate-three 1.15s linear infinite;
+		-webkit-animation: cssload-rotate-three 1.15s linear infinite;
+		-moz-animation: cssload-rotate-three 1.15s linear infinite;
+	border-top: 3px solid rgb(233, 144, 138);;
+}
+
+}
+@keyframes cssload-rotate-one {
+	0% {
+		transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+	}
+	100% {
+		transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+	}
+}
+
+@-o-keyframes cssload-rotate-one {
+	0% {
+		-o-transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+	}
+	100% {
+		-o-transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+	}
+}
+
+@-ms-keyframes cssload-rotate-one {
+	0% {
+		-ms-transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+	}
+	100% {
+		-ms-transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+	}
+}
+
+@-webkit-keyframes cssload-rotate-one {
+	0% {
+		-webkit-transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+	}
+	100% {
+		-webkit-transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+	}
+}
+
+@-moz-keyframes cssload-rotate-one {
+	0% {
+		-moz-transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+	}
+	100% {
+		-moz-transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+	}
+}
+
+@keyframes cssload-rotate-two {
+	0% {
+		transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+	}
+	100% {
+		transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+	}
+}
+
+@-o-keyframes cssload-rotate-two {
+	0% {
+		-o-transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+	}
+	100% {
+		-o-transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+	}
+}
+
+@-ms-keyframes cssload-rotate-two {
+	0% {
+		-ms-transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+	}
+	100% {
+		-ms-transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+	}
+}
+
+@-webkit-keyframes cssload-rotate-two {
+	0% {
+		-webkit-transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+	}
+	100% {
+		-webkit-transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+	}
+}
+
+@-moz-keyframes cssload-rotate-two {
+	0% {
+		-moz-transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+	}
+	100% {
+		-moz-transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+	}
+}
+
+@keyframes cssload-rotate-three {
+	0% {
+		transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+	}
+	100% {
+		transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+	}
+}
+
+@-o-keyframes cssload-rotate-three {
+	0% {
+		-o-transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+	}
+	100% {
+		-o-transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+	}
+}
+
+@-ms-keyframes cssload-rotate-three {
+	0% {
+		-ms-transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+	}
+	100% {
+		-ms-transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+	}
+}
+
+@-webkit-keyframes cssload-rotate-three {
+	0% {
+		-webkit-transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+	}
+	100% {
+		-webkit-transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+	}
+}
+
+@-moz-keyframes cssload-rotate-three {
+	0% {
+		-moz-transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+	}
+	100% {
+		-moz-transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+	}
+}
+
+
+@import "media"; // Always at the end

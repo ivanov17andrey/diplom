@@ -1,0 +1,103 @@
+@import "vars";
+
+
+/*==========  Desktop First  ==========*/
+
+// ≥1200px
+@include media-breakpoint-down(lg) {
+	body {
+		font-size: 16px;
+	}
+}
+
+// ≥992px
+@include media-breakpoint-down(md) {
+	body {
+		font-size: 14px;
+		.header {
+			&__headline {
+				font-size: 2.5rem;
+			}
+		}
+		.nav {
+			&__ul {
+				height: 2.2rem;
+			}
+		}
+
+		.about-helicopter {
+			flex-flow: column;
+
+			&__img {
+				margin: 0;
+				&:hover {
+					transform: none;
+					border-color: $text;
+				}
+			}
+		}
+	}
+}
+
+// ≥768px
+@include media-breakpoint-down(sm) {
+
+}
+
+// ≥576px
+@include media-breakpoint-down(xs) {
+	body {
+		.header {
+			&__headline {
+				width: 80%;
+				padding: 1rem .5rem;
+				font-size: 2rem;
+			}
+		}
+
+		.nav {
+			&__ul {
+				height: fit-content;
+			}
+
+			&__item {
+				flex: 0 1 50%;	
+			}
+		}
+
+		// .about-helicopter {
+		// 	flex-flow: column;
+
+		// 	&__img {
+		// 		margin: 0;
+		// 		&:hover {
+		// 			transform: none;
+		// 			border-color: $text;
+		// 		}
+		// 	}
+		// }
+	}
+}
+
+
+/*==========  Mobile First  ==========*/
+
+// ≤576px
+@include media-breakpoint-up(sm) {
+
+}
+
+// ≤768px
+@include media-breakpoint-up(md) {
+
+}
+
+// ≤992px
+@include media-breakpoint-up(lg) {
+	
+}
+
+// ≤1200px
+@include media-breakpoint-up(xl) {
+	
+}
