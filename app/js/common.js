@@ -157,8 +157,8 @@ document.getElementById('box').addEventListener('click', function(event) {
 				return;
 			}
 			document.getElementById('pair-name').disabled = 'true';
-			matrixPair[col][row] = 0;
-			matrixPair[row][col] = 1;
+			matrixPair[col][row] = 1;
+			matrixPair[row][col] = 0;
 			checkTransitiveClosure();
 			break;
 
@@ -168,8 +168,8 @@ document.getElementById('box').addEventListener('click', function(event) {
 				return;
 			}
 			document.getElementById('pair-name').disabled = 'true';
-			matrixPair[col][row] = 1;
-			matrixPair[row][col] = 0;
+			matrixPair[col][row] = 0;
+			matrixPair[row][col] = 1;
 			checkTransitiveClosure();
 			break;
 
@@ -276,9 +276,9 @@ function fillingMatrixRanging(){
 		for(let j = 0; j < numOfAlternatives; j++){
 			if(i != j){
 				if(orderOfAlternatives[i] >= orderOfAlternatives[j]){
-					matrixRanging[i][j] = 0;
-				}else{
 					matrixRanging[i][j] = 1;
+				}else{
+					matrixRanging[i][j] = 0;
 				}
 			}
 		}
