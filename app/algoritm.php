@@ -127,6 +127,17 @@ function contourRemoval($matrix) {
 	$Rsum = adjacencyFromTotalPreferenceMatrix($matrix);
 
 	do{
+		// echo 'Rsum<br>';
+		// echo $Rsum[0][0] . $Rsum[0][1] . $Rsum[0][2]. $Rsum[0][3]. $Rsum[0][4];
+		// echo "<br>";
+		// echo $Rsum[1][0] . $Rsum[1][1] . $Rsum[1][2]. $Rsum[1][3]. $Rsum[1][4];
+		// echo "<br>";
+		// echo $Rsum[2][0] . $Rsum[2][1] . $Rsum[2][2]. $Rsum[2][3]. $Rsum[2][4];
+		// echo "<br>";
+		// echo $Rsum[3][0] . $Rsum[3][1] . $Rsum[3][2]. $Rsum[3][3]. $Rsum[3][4];
+		// echo "<br>";
+		// echo $Rsum[4][0] . $Rsum[4][1] . $Rsum[4][2]. $Rsum[4][3]. $Rsum[4][4];
+		// echo "<br>";
 		$trRsum = transitiveClosure($Rsum);
 		$TtrRsum = matrixTranspose($trRsum);
 		$symtrRsum = matrixConjunction($trRsum, $TtrRsum);
@@ -137,10 +148,56 @@ function contourRemoval($matrix) {
 
 		$asymRk = matrixConjunction($asymRsum,$symtrRsum);
 
+		// echo 'asymRk<br>';
+		// echo $asymRk[0][0] . $asymRk[0][1] . $asymRk[0][2]. $asymRk[0][3]. $asymRk[0][4];
+		// echo "<br>";
+		// echo $asymRk[1][0] . $asymRk[1][1] . $asymRk[1][2]. $asymRk[1][3]. $asymRk[1][4];
+		// echo "<br>";
+		// echo $asymRk[2][0] . $asymRk[2][1] . $asymRk[2][2]. $asymRk[2][3]. $asymRk[2][4];
+		// echo "<br>";
+		// echo $asymRk[3][0] . $asymRk[3][1] . $asymRk[3][2]. $asymRk[3][3]. $asymRk[3][4];
+		// echo "<br>";
+		// echo $asymRk[4][0] . $asymRk[4][1] . $asymRk[4][2]. $asymRk[4][3]. $asymRk[4][4];
+		// echo "<br>";
+
 		$Rsum = matrixSubtract($Rsum, $asymRk);
 	} while (matrixElemsSum($asymRk) != 0);
 
 	return $Rsum;
+}
+
+function demucron($matrix) {
+	$row = [];
+
+	for ($i = 0; $i < $len; $i++) {
+		$row[$i] = 0;
+		for ($j = 0; $j < $len; $j++) {
+			$row[$i] += $matrix[$i][$j];
+		}
+	}
+
+	return $row;
+}
+
+function returnData($matrix) {
+	$row = demucron($matrix);
+
+	for ($i = 0; $i < $len; $i++) {
+		$num = $i + 1;
+		$name = 'alternativa' . $num;
+		$al[$i] = array('alt' => $name, 'sum' => $row[$i]);
+	}
+
+	$rows = [];
+
+	for ($i = 0; $i < $len; $i++) { 
+		$rows[$i] = $al[$i];
+	}
+
+	$result = json_encode($rows);
+	echo $result;
+
+	mysqli_free_result($result);
 }
 
 function totalPreferenceMatrixFill() {
