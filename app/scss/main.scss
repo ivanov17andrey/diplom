@@ -231,7 +231,7 @@ body {
 			padding-bottom: 2rem;
 			display: flex;
 			flex-flow: row wrap;
-			justify-content: space-around;
+			justify-content: space-between;
 			width: 100%;
 		}
 
@@ -375,6 +375,34 @@ body {
 			}
 		}
 
+		.matrix-box {
+			display: flex;
+			flex-flow: column wrap;
+			align-items: center;
+			margin-top: 1.5rem;
+			margin-bottom: .5rem;
+			width: 100%;
+			h2 {
+				flex: 0 1 100%;
+			}
+			.pair__matrix {
+				flex: 0 1 100%;
+				align-self: center;
+				font-size: 1.2rem;
+				border-left: 1px solid $text;
+				border-right: 1px solid $text;
+				border-radius: 1rem;
+				tr {
+
+					td {
+						padding-left: .5rem;
+						padding-right: .5rem;
+					}
+				}
+				
+			}
+		}
+
 		.result {
 			display: flex;
 			flex-flow: column wrap;
@@ -387,6 +415,7 @@ body {
 			}
 
 			&__button {
+				flex: 0 1 100%;
 				width: auto;
 				color: $text;
 				background: white;
@@ -410,7 +439,7 @@ body {
 			&__row {
 				flex: 0 1 100%;
 				display: flex;
-				flex-flow: row nowrap;
+				flex-flow: row wrap;
 				justify-content: center;
 				width: 100%;
 			}

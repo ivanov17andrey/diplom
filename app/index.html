@@ -405,7 +405,7 @@
 
 			<h2 class="comparition__heading">Сравнение представленных моделей</h2>
 
-			<div class="comparition__box">
+			<div class="comparition__box" id="comparition__box">
 
 				<button class="comparition__method" id="show-ranging">Ранжирование</button>
 
@@ -542,7 +542,7 @@
 					</div>
 
 					<div class="pair__cell">
-						<button id="equal" class="pair__button">Bell 429 WLG равны Bell 407 GXP</button>
+						<button id="equal" class="pair__button">Bell 429 WLG равноценны Bell 407 GXP</button>
 					</div>
 
 					<div class="pair__cell">
@@ -550,6 +550,10 @@
 					</div>
 
 				</div>
+
+			</div>
+
+			<div class="matrix-box" id="matrix-box">
 
 			</div>
 
@@ -566,15 +570,18 @@
 				<div class="result__table" id="result-table">
 
 				</div>
-				
+
+				<div class="result__row">
+
+					<!-- <button class="result__button" onclick="document.location.reload()">Ранжировать еще раз</button> -->
+	
+					<button class="result__button" id="emptydb">Рестарт</button>
+	
+				</div>
 
 			</div>
 
-			<div class="result__row">
-
-				<button class="result__button" id="emptydb">Рестарт</button>
-
-			</div>
+			
 
 		</section>
 

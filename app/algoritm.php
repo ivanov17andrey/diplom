@@ -15,78 +15,19 @@ $result = mysqli_query($link, $query) or die("Ошибка" . mysqli_error($link
 if($result){
 	$rows = mysqli_num_rows($result);
 
-	$totalPreferenceMatrix = [];
-	for ($i = 0 ; $i < $rows ; $i++) {
-		$row = mysqli_fetch_row($result);
-		$array = str_split($row[0]);
-		$len = sqrt(sizeof($array));
-		$n = 0;
-
-		$R = [];
-		for ($j = 0; $j < $len; $j++) { 
-			for ($k = 0; $k < $len; $k++) { 
-				$R[$j][$k] += $array[$n];
-				$n++;
-			}
-		}
-
-		$P = preferenceFromAdjacencyMatrix($R);
-
-		// echo 'P<br>';
-		// for ($j=0; $j < $len; $j++) { 
-		// 	for ($k=0; $k < $len; $k++) { 
-		// 		echo $P[$j][$k];
-		// 	}
-		// 	echo '<br>';
-		// }
-
-		for ($j = 0; $j < $len; $j++) { 
-			for ($k = 0; $k < $len; $k++) { 
-				$totalPreferenceMatrix[$j][$k] += $P[$j][$k];
-			}
-	 	}
-
-		 $n = 0;
-	}
-
-	// echo 'total<br>';
-	// for ($i=0; $i < $len; $i++) { 
-	// 	for ($j=0; $j < $len; $j++) { 
-	// 		echo $totalPreferenceMatrix[$i][$j];
-	// 	}
-	// 	echo '<br>';
-	// }
-
+	$totalPreferenceMatrix = totalPreferenceMatrixFilling($rows, $result);
+	// showMatrix($totalPreferenceMatrix);
 	$R = contourRemoval($totalPreferenceMatrix);
 	$Rcap = transitiveClosure($R);
 	$Pcap = preferenceFromAdjacencyMatrix($Rcap);
 	$asymRcap = asymMatrix($Rcap);
 
-	// echo 'R<br>';
-	// for ($i=0; $i < $len; $i++) { 
-	// 	for ($j=0; $j < $len; $j++) { 
-	// 		echo $R[$i][$j];
-	// 	}
-	// 	echo '<br>';
-	// }
-
-	// echo 'Rcap<br>';
-	// for ($i=0; $i < $len; $i++) { 
-	// 	for ($j=0; $j < $len; $j++) { 
-	// 		echo $Rcap[$i][$j];
-	// 	}
-	// 	echo '<br>';
-	// }
-
-	// echo 'asymRcap<br>';
-	// for ($i=0; $i < $len; $i++) { 
-	// 	for ($j=0; $j < $len; $j++) { 
-	// 		echo $asymRcap[$i][$j];
-	// 	}
-	// 	echo '<br>';
-	// }
+	// showMatrix($R);
+	// showMatrix($Rcap);
+	// showMatrix($asymRcap);
 
 	$row = [];
+	$len = count($asymRcap);
 
 	for ($i = 0; $i < $len; $i++) {
 		for ($j = 0; $j < $len; $j++) {
@@ -106,6 +47,7 @@ if($result){
 		$rows[$i] = $al[$i];
 	}
 
+
 	$result = json_encode($rows);
 	echo $result;
 
@@ -117,53 +59,52 @@ if($result){
 
 
 
+function contourRemoval(&$matrix) {
+	$len = count($matrix);
+  do{
+	  $Rsum = adjacencyFromTotalPreferenceMatrix($matrix);
+	  
+	  $trRsum = transitiveClosure($Rsum);
+	  $TtrRsum = matrixTranspose($trRsum);
+	  $symtrRsum = matrixConjunction($trRsum, $TtrRsum);
 
+	  $TRsum = matrixTranspose($Rsum);
+	  $symRsum = matrixConjunction($Rsum, $TRsum);
+	  $asymRsum = asymMatrix($Rsum, $symRsum);
 
+	  $asymRk = matrixConjunction($asymRsum,$symtrRsum);
+		 
+	  $tempWeight = weightFromTotalPreferenceMatrix($matrix);
 
+		for ($i = 0; $i < $len; $i++) {
+			for ($j = 0; $j < $len; $j++) {
+				if ($asymRk[$i][$j] == 0) {
+					$tempWeight[$i][$j] = INF;
+				}
+			}
+		}
 
+		$minWeight = INF;
+	
+		for ($i = 0; $i < $len; $i++) {
+			if (min($tempWeight[$i]) < $minWeight && min($tempWeight[$i]) != 0) {
+					$minWeight = min($tempWeight[$i]);
+			}
+		}
+	  
+		for ($i = 0; $i < $len; $i++) {
+			for ($j = 0; $j < $len; $j++) {
+					if ($tempWeight[$i][$j] == $minWeight && $tempWeight[$i][$j] != INF  && $minWeight > 0 && $minWeight < 99999) {
+						$matrix[$j][$i] = 0;
+						$matrix[$i][$j] = 0;
+					}
+			}
+		}
 
+	  // $Rsum = matrixSubtract($Rsum, $asymRk);
+  } while (matrixElemsSum($asymRk) != 0);
 
-function contourRemoval($matrix) {
-	$Rsum = adjacencyFromTotalPreferenceMatrix($matrix);
-
-	do{
-		// echo 'Rsum<br>';
-		// echo $Rsum[0][0] . $Rsum[0][1] . $Rsum[0][2]. $Rsum[0][3]. $Rsum[0][4];
-		// echo "<br>";
-		// echo $Rsum[1][0] . $Rsum[1][1] . $Rsum[1][2]. $Rsum[1][3]. $Rsum[1][4];
-		// echo "<br>";
-		// echo $Rsum[2][0] . $Rsum[2][1] . $Rsum[2][2]. $Rsum[2][3]. $Rsum[2][4];
-		// echo "<br>";
-		// echo $Rsum[3][0] . $Rsum[3][1] . $Rsum[3][2]. $Rsum[3][3]. $Rsum[3][4];
-		// echo "<br>";
-		// echo $Rsum[4][0] . $Rsum[4][1] . $Rsum[4][2]. $Rsum[4][3]. $Rsum[4][4];
-		// echo "<br>";
-		$trRsum = transitiveClosure($Rsum);
-		$TtrRsum = matrixTranspose($trRsum);
-		$symtrRsum = matrixConjunction($trRsum, $TtrRsum);
-
-		$TRsum = matrixTranspose($Rsum);
-		$symRsum = matrixConjunction($Rsum, $TRsum);
-		$asymRsum = asymMatrix($Rsum, $symRsum);
-
-		$asymRk = matrixConjunction($asymRsum,$symtrRsum);
-
-		// echo 'asymRk<br>';
-		// echo $asymRk[0][0] . $asymRk[0][1] . $asymRk[0][2]. $asymRk[0][3]. $asymRk[0][4];
-		// echo "<br>";
-		// echo $asymRk[1][0] . $asymRk[1][1] . $asymRk[1][2]. $asymRk[1][3]. $asymRk[1][4];
-		// echo "<br>";
-		// echo $asymRk[2][0] . $asymRk[2][1] . $asymRk[2][2]. $asymRk[2][3]. $asymRk[2][4];
-		// echo "<br>";
-		// echo $asymRk[3][0] . $asymRk[3][1] . $asymRk[3][2]. $asymRk[3][3]. $asymRk[3][4];
-		// echo "<br>";
-		// echo $asymRk[4][0] . $asymRk[4][1] . $asymRk[4][2]. $asymRk[4][3]. $asymRk[4][4];
-		// echo "<br>";
-
-		$Rsum = matrixSubtract($Rsum, $asymRk);
-	} while (matrixElemsSum($asymRk) != 0);
-
-	return $Rsum;
+  return $Rsum;
 }
 
 function demucron($matrix) {
@@ -200,31 +141,42 @@ function returnData($matrix) {
 	mysqli_free_result($result);
 }
 
-function totalPreferenceMatrixFill() {
-	$total = [];
+function totalPreferenceMatrixFilling($rows, $result) {
+	$totalPreferenceMatrix = [];
 	for ($i = 0 ; $i < $rows ; $i++) {
-		 $n = 0;
+		$row = mysqli_fetch_row($result);
+		$array = str_split($row[0]);
+		$len = sqrt(sizeof($array));
+		$n = 0;
 
-		 $R = [];
-		 for ($j = 0; $j < $len; $j++) { 
-				for ($k = 0; $k < $len; $k++) { 
-					$R[$j][$k] += $array[$n];
-					$n++;
-				}
-		 }
+		$R = [];
+		for ($j = 0; $j < $len; $j++) { 
+			for ($k = 0; $k < $len; $k++) { 
+				$R[$j][$k] += $array[$n];
+				$n++;
+			}
+		}
 
-		 $P = preferenceFromAdjacencyMatrix($R);
+		$P = preferenceFromAdjacencyMatrix($R);
+
+		// echo 'P<br>';
+		// for ($j=0; $j < $len; $j++) { 
+		// 	for ($k=0; $k < $len; $k++) { 
+		// 		echo $P[$j][$k];
+		// 	}
+		// 	echo '<br>';
+		// }
 
 		for ($j = 0; $j < $len; $j++) { 
 			for ($k = 0; $k < $len; $k++) { 
-				$total[$j][$k] = $P[$j][$k];
+				$totalPreferenceMatrix[$j][$k] += $P[$j][$k];
 			}
-	 	}
+		}
 
-		 $n = 0;
+		$n = 0;
 	}
-	
-	return $total;
+
+	return $totalPreferenceMatrix;
 }
 
 function adjacencyFromTotalPreferenceMatrix($matrix) {
@@ -234,7 +186,11 @@ function adjacencyFromTotalPreferenceMatrix($matrix) {
 				$temp[$i][$j] = 1;
 			}else{
 				if($matrix[$i][$j] >= $matrix[$j][$i]){
-					$temp[$i][$j] = 1;
+					if ($matrix[$i][$j] == 0 && $matrix[$j][$i] == 0) {
+						$temp[$i][$j] = 0;
+					} else {
+						$temp[$i][$j] = 1;
+					}
 				}else{
 					$temp[$i][$j] = 0;
 				}
@@ -345,6 +301,16 @@ function matrixElemsSum($matrix) {
 		}
 	}
 	return $sum;
+}
+
+function showMatrix($matrix) {
+	for ($i = 0; $i < count($matrix); $i++) {
+	 for ($j = 0; $j < count($matrix); $j++) {
+		 echo $matrix[$i][$j] . ' ';
+	 }
+	 echo "<br/>";
+ }
+ echo "<br/>";
 }
 
 mysqli_close($link);
